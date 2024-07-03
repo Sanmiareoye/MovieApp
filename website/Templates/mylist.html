@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+
+{% block title %}My List{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>My List</h1>
+  <div align='center' class="row">
+    {% for movie in movies %}
+    <div class="card">
+      <img src="{{ movie['Poster'] }}" class="card-img-top" alt="{{ movie['Title'] }} Poster">
+      <div class="card-body">
+        <h5 class="card-title">{{ movie['Title'] }}</h5>
+        <p class="card-text">Year: {{ movie['Year'] }}</p>
+        <p class="card-text">Type: {{ movie['Type'] }}</p>
+        <!-- Button to delete movie from list -->
+        <button type="button" class="close" onclick="deleteMovie('{{ movie['imdbID'] }}')">
+          <span aria-hidden="true">&times; Delete Movie from List </span>
+        </button>
+        <br>
+        <br>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+

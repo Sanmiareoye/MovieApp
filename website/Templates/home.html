@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+
+{% block title %}Movies{% endblock %}
+
+{% block content %}
+<br>
+<form method="POST">
+  <input name="search-field" id='search-field' class="search-field"/>
+  <button type='submit' class="button" >Search</button>
+</form>
+<div class="container">
+  <h1>Movies</h1>
+  <div align='center' class="row">
+    {% for movie in movies %}
+    <div class="card">
+   
+        <input type="hidden" name="movie-id" value="{{ movie['imdbID'] }}">
+        <img name='poster' id="poster" src="{{ movie['Poster'] }}" class="card-img" alt="{{ movie['Title'] }} Poster">
+        <div class="card-body">
+          <h5 id='title' class="card-title">{{ movie['Title'] }}</h5>
+          <p id='year' class="card-text">Year: {{ movie['Year'] }}</p>
+          <p id='type' class="card-text">Type: {{ movie['Type'] }}</p>
+          {% if current_user.is_authenticated %}
+          <button class="btn btn-primary" onclick="addMovie('{{ movie['imdbID'] }}')">Add to My List</button>
+          <br>
+          <br>
+          {% endif %}
+        </div>
+      
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

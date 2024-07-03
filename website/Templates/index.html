@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+    <title>{% block title %}Movie App{% endblock %}</title>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <ul>
+            <li><a id='home' href="/">Home</a></li>
+            {% if current_user.is_authenticated %}
+            <li><a id='mylist' href="/mylist">My List</a></li>
+            <li><a id='logout' href="/logout">Logout</a></li>
+            {% else %}
+            <li><a id='signup' href="/signup">Sign Up</a></li>
+            <li><a id='login' href="/login">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+      {% if category == 'error' %}
+      <div align='center' class="alert alert-danger alter-dismissable fade show" role="alert">
+        {{message}}
+        <button type="button" class="close" data-dismiss="alert">
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      {% else %}
+      <div align='center' class="alert alert-success alter-dismissable fade show" role="alert">
+        {{message}}
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      {% endif %}
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
+
+
